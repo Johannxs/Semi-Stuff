@@ -1,0 +1,26 @@
+// TEST am 13.04.2021 mit einem Funduino MEGA 2560 - Begleitet von Mattias Benedix & Johannes Tryboll
+
+#include <OneWire.h> 
+#include <DallasTemperature.h>
+
+#define ONE_WIRE_BUS 2  // Datenkabel an Pin 2 angeschlossen
+
+
+OneWire oneWire(ONE_WIRE_BUS); 
+
+DallasTemperature sensors(&oneWire);
+ 
+void setup() {  
+ Serial.begin(9600);    // Beginn der Ausführung [Ende der Deklaration]
+ Serial.println("");  
+ sensors.begin();       // Beginn der Sensoraufzeichnung 
+} 
+
+void loop() {
+  Serial.print(" Requesting temperatures..."); 
+  sensors.requestTemperatures(); // Send the command to get temperature readings 
+  int x = ( sensors.getTempC (0));
+  Serial.print("Temperature is: ");  
+  Serial.print(x);
+  delay(1000); 
+} 
